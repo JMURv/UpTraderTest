@@ -1,0 +1,4 @@
+{% if recursive_item.parent %}
+    {% include "menu_part.html" with recursive_item=recursive_item.parent %}
+{% endif %}
+<a href="/{{ recursive_item.name }}/">{{ recursive_item.name }}</a>

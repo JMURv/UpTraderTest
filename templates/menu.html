@@ -1,0 +1,23 @@
+{% load menu_tags %}
+
+{% with menu_items as menu_items %}
+    {% for item in menu_items %}
+        <ul>
+            {% if item.parent %}
+                <li>{% include "menu_part.html" with recursive_item=item.parent %}</li>
+            {% endif %}
+            <li>
+                <a {% if request.path == path %} class="active"{% endif %} href="{{ item.url }}">{{ item.name }}</a>
+                {% if item.children %}
+                    {% for recursive_item in item.children.all %}
+                        <ul>
+                            <li>
+                                <a href="/{{ recursive_item.name }}/">{{ recursive_item.name }}</a>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+            </li>
+        </ul>
+    {% endfor %}
+{% endwith %}
